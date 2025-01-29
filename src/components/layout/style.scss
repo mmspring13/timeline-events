@@ -1,0 +1,22 @@
+.app-layout {
+  position: relative;
+  &:after,
+  &:before {
+    content: '';
+    display: block;
+    height: 100%;
+    width: 1px;
+    background-color: var(--color-line);
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+  }
+  &:after {
+    height: 1px;
+    width: 100%;
+  }
+}

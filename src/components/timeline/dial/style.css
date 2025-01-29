@@ -1,0 +1,10 @@
+.dial-dot {
+  --angle: calc(360deg * var(--i) / var(--count)); /* Angle for each dot */
+  --radius: 265px; /* Half of the circle's width (530px / 2) */
+  position: absolute;
+  background: orange;
+  color: black;
+  transform: 
+    translate(-50%, -50%) 
+    translate(calc(cos(var(--angle)) * var(--radius)), calc(sin(var(--angle)) * var(--radius))) rotate(calc(var(--rotate)* 1deg));
+}
