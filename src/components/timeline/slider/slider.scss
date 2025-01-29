@@ -60,6 +60,7 @@
 
   @include for-tablet {
     padding-right: auto;
+    padding-left: 0;
     margin-top: auto;
     &__swiper-wrapper {
       padding: 0 6rem;
