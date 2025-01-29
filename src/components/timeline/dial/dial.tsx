@@ -39,7 +39,7 @@ export const Dial = () => {
       onTransitionEndCapture={() => {
         setTimeout(() => {
           setShowLabel(true);
-        }, 380);
+        }, 790);
       }}
     >
       {periods.map((period, i) => (

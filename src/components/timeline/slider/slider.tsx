@@ -7,7 +7,7 @@ import cn from "clsx";
 import "./slider.scss";
 import { motion, MotionConfig } from "motion/react";
 import ToggleIcon from "./../assets/toggle.svg?react";
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import useMedia from "react-use/lib/useMedia";
 
 export const Slider = () => {
@@ -18,12 +18,6 @@ export const Slider = () => {
   const isTablet = useMedia("(min-width: 980px)");
 
   const swiperRef = useRef<SwiperRef>(null);
-
-  useEffect(() => {
-    if (isTablet) {
-      swiperRef.current?.swiper.slideReset();
-    }
-  }, [isTablet]);
 
   return (
     <MotionConfig transition={{ duration: 1 }}>
@@ -54,6 +48,11 @@ export const Slider = () => {
         <div className="tl-slider__swiper-wrapper">
           <Swiper
             className="tl-slider-swiper"
+            onInit={(ctx) => {
+              ctx.slideReset();
+              setShowNext(!ctx.isEnd);
+              setShowPrev(false);
+            }}
             breakpoints={{
               320: {
                 slidesPerView: 2,
