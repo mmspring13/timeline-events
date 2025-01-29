@@ -8,17 +8,17 @@ export const TimelineProvider = ({
 }: PropsWithChildren<{
   defaultData: {
     periods: Context["periods"];
-    currentPeriodIdx: number;
+    currentPeriodKey: number;
   };
 }>) => {
-  const [currentPeriodIdx, setPeriodIdx] = useState(0);
+  const [currentPeriodKey, setPeriodKey] = useState(0);
 
   return (
     <TimelineContext.Provider
       value={{
         ...defaultData,
-        currentPeriodIdx,
-        setPeriodIdx,
+        currentPeriodKey,
+        setPeriodKey,
       }}
     >
       {children}

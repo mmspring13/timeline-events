@@ -1,8 +1,9 @@
-import { ReactNode } from "react";
+import { Dispatch, ReactNode, SetStateAction } from "react";
 
 export type Period = {
   key: string;
   period: [ReactNode, ReactNode];
+  title: ReactNode;
   events: Array<{
     key: string;
     title: ReactNode;
@@ -12,6 +13,6 @@ export type Period = {
 
 export type Context = {
   periods: Array<Period>;
-  currentPeriodIdx: number;
-  setPeriodIdx: (value: number) => void;
+  currentPeriodKey: number;
+  setPeriodKey: Dispatch<SetStateAction<number>>;
 };

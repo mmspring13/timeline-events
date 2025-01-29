@@ -1,0 +1,27 @@
+.tl-layout {
+  position: relative;
+  padding-top: 3.6875rem;
+  height: 100%;
+  width: 100%;
+  @include for-tablet {
+    max-width: 90rem;
+    min-height: 64rem;
+    padding-top: min(10.625rem, 15.75%);
+
+    border: 1px solid rgba(var(--color-primary), .1);
+    &:before {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 1px;
+      background-color: rgba(var(--color-primary), .1);
+      position: absolute;
+      top: 0;
+      z-index: -1;
+      left: 0;
+      bottom: 0;
+      right: 0;
+      margin: auto;
+    }
+  }
+}

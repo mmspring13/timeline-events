@@ -1,0 +1,20 @@
+.tl-period {
+  word-spacing: 1rem;
+  font-weight: bold;
+  text-align: center;
+  font-size: 3.5rem;
+  line-height: auto;
+
+  &__from {
+    color: rgb(var(--color-from));
+  }
+  &__to {
+    color: rgb(var(--color-to));
+  }
+
+  @include for-tablet {
+    transform: translate(-1.25rem, 6rem);
+    line-height: 10rem;
+    font-size: 12.5rem;
+  }
+}

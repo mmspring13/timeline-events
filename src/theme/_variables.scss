@@ -1,0 +1,13 @@
+// @import url('./media.scss');
+
+// colors
+@mixin tl-colors {
+  --color-primary: 66, 86, 122;
+  --color-secondary: 56, 119, 238;
+  --color-from: 93, 95, 239;
+  --color-to: 239, 93, 168;
+  --color-gradient-1-1: 56, 119, 238;
+  --color-gradient-1-2: 239, 93, 168;
+  --color-base: 244, 245, 249;
+  --color-active: 255 255 255;
+}

@@ -1,77 +1,84 @@
-import { useCallback, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import cn from "clsx";
 import { useTimelineContext } from "../hooks/use-context";
-import "./style.css";
+import "./dial.scss";
+import { motion, MotionConfig } from "motion/react";
 
 export const Dial = () => {
-  const { periods, currentPeriodIdx } = useTimelineContext();
-  const period = periods[currentPeriodIdx];
+  const { periods, setPeriodKey, currentPeriodKey } = useTimelineContext();
   const dialRef = useRef<HTMLDivElement>(null);
-  const count = period.events.length;
+  const count = periods.length;
   const [targetRotation, setTargetRotation] = useState(0);
 
-  const rotateToPrimarySegment = useCallback(
-    (index: number) => {
-      const circle = dialRef.current;
-      if (!circle) return;
-      const anglePerDot = 360 / count; // Angle between each dot
-      // const primarySegmentAngle = -60; // Primary segment is at 0 degrees (right side)
-      const primarySegmentAngle = -(360 / count);
-      const clickedDotAngle = anglePerDot * index; // Angle of the clicked dot
-      const targetRotation = primarySegmentAngle - clickedDotAngle; // Rotation needed
-      setTargetRotation(targetRotation);
+  const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
-      // // Update the rotation slider value
-      // rotateInput.value = (360 - targetRotation) % 360;
-    },
-    [count],
-  );
+  const [showLabel, setShowLabel] = useState(true);
 
-  // const createDots = useCallback(() => {
-  //   const circle = dialRef.current;
-  //   if (!circle) return;
-  //   circle.innerHTML = "";
+  const rotateToPrimarySegment = useCallback(() => {
+    const index = currentPeriodKey;
+    const circle = dialRef.current;
+    if (!circle) return;
+    const anglePerDot = 360 / count;
+    const primarySegmentAngle = -(360 / count);
+    const clickedDotAngle = anglePerDot * index;
+    const targetRotation = primarySegmentAngle - clickedDotAngle;
+    setPeriodKey(index);
+    setTargetRotation(targetRotation);
+  }, [count, currentPeriodKey, setPeriodKey]);
 
-  //   for (let i = 0; i < periods.length; i++) {
-  //     const dot = document.createElement("div");
-  //     dot.classList.add("dial-dot");
-  //     dot.style.setProperty("--i", String(i));
-  //     dot.style.setProperty("--count", String(periods.length));
+  useEffect(() => {
+    rotateToPrimarySegment();
+  }, [rotateToPrimarySegment]);
 
-  //     // Add label to the dot
-  //     const label = document.createElement("span");
-  //     label.textContent = String(i + 1); // Number the dots starting from 1
-  //     dot.appendChild(label);
-
-  //     // Add click event to rotate the circle
-  //     dot.addEventListener("click", () =>
-  //       rotateToPrimarySegment(i, periods.length),
-  //     );
-  //     circle.appendChild(dot);
-  //   }
-  // }, [periods.length, rotateToPrimarySegment]);
-
-  // useEffect(() => {
-  //   createDots();
-  // }, [createDots]);
-  console.log("period.events", period.events);
   return (
     <div
       ref={dialRef}
       style={{ transform: `rotate(${targetRotation}deg)` }}
-      className="absolute top-0 left-0 right-0 bottom-0 m-auto w-[33.125rem] aspect-square rounded-full border border-line transition-transform duration-700"
+      className="tl-dial"
+      onTransitionEndCapture={() => {
+        setTimeout(() => {
+          setShowLabel(true);
+        }, 300);
+      }}
     >
-      {period.events.map((event, i) => (
+      {periods.map((period, i) => (
         <div
-          key={event.key}
+          key={period.key}
           style={{
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-expect-error
             "--count": String(count),
             "--i": String(i),
             "--rotate": String(Math.abs(targetRotation)),
           }}
-          className="dial-dot absolute max-w-5 w-full max-h-5 h-full z-10 aspect-square rounded-full top-[50%] left-[50%] flex justify-center items-center cursor-pointer"
-          onClick={() => rotateToPrimarySegment(i)}
+          className={cn("tl-dial-dot", {
+            _active: i === currentPeriodKey || i === hoveredIdx,
+          })}
+          onMouseEnter={() => setHoveredIdx(i)}
+          onMouseLeave={() => setHoveredIdx(null)}
+          onClick={() => {
+            setPeriodKey(i);
+            setShowLabel(false);
+          }}
         >
-          {event.key}
+          {(i === currentPeriodKey || i === hoveredIdx) && String(period.key)}
+          <MotionConfig transition={{ duration: 1.2 }}>
+            {Boolean(
+              (i === currentPeriodKey || i === hoveredIdx) && showLabel,
+            ) && (
+              <motion.div
+                className="tl-dial-dot__label"
+                initial={{
+                  opacity: 0,
+                }}
+                animate={{
+                  opacity: 1,
+                }}
+              >
+                {period.title}
+              </motion.div>
+            )}
+          </MotionConfig>
         </div>
       ))}
     </div>

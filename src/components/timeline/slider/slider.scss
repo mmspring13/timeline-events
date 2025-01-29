@@ -1,0 +1,84 @@
+.tl-slider {
+  width: 100%;
+  min-height: 8.4375rem;
+  display: flex;
+  position: relative;
+  padding-left: 1.25rem;
+  
+  &__swiper-wrapper {
+    width: 100%;
+  }
+
+  &__slide {
+    max-width: 80%;
+    will-change: opacity;
+    transition: .2s linear;
+    &__title {
+      font-family: "Bebas Neue", "PT Sans";
+      font-size: 1.5625rem;
+      line-height: 1.875rem;
+      color: rgb(var(--color-secondary));
+      display: block;
+      padding-bottom: 0.9375rem;
+    }
+    &__content {
+      font-size: 1.25rem;
+      line-height: 1.875rem;
+      display: block;
+    }
+    ._disabled {
+      opacity: .5;
+    }
+  }
+
+  &__toggle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 1.5rem;
+    margin: auto;
+    &__icon {
+      path {
+        stroke: rgb(var(--color-secondary));
+      }
+      circle {
+        stroke: none;
+        fill: rgb(var(--color-active));
+      }
+    }
+
+    &.__next {
+      right: 2rem;
+      left: auto;
+      // margin-left: auto;
+      .tl-slider__toggle__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+
+  @include for-tablet {
+    padding-left: 0;
+    padding-right: auto;
+    margin-top: auto;
+    &__swiper-wrapper {
+      padding: 0 6rem;
+      width: 100%;
+    }
+    &__slide {
+      max-width: 20rem;
+      width: 100%;
+      ._disabled {
+        opacity: 1;
+      }
+      &:nth-of-type(2) {
+        max-width: 25rem;
+      }
+    }
+  }
+}
+
+.tl-slider-swiper {
+  width: 100%;
+}

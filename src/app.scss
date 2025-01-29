@@ -1,0 +1,27 @@
+.app-title {
+  padding-left: 1.25rem;
+  white-space: pre-line;
+  line-height: 1.5rem;
+  font-size: 1.25rem;
+  position: relative;
+
+  @include for-tablet {
+    line-height: 4.2rem;
+    font-size: 3.5rem;
+    padding-left: 5rem;
+
+    &:before {
+      content: '';
+      display: block;
+      height: 100%;
+      width: 0.3125rem;
+      background-image: linear-gradient(
+        rgb(var(--color-gradient-1-1)),
+        rgb(var(--color-gradient-1-2))
+      );
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+}

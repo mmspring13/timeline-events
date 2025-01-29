@@ -1,0 +1,57 @@
+@import "./theme/_variables.scss";
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  @include tl-colors;
+  font-family: 'PT Sans', Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  
+  color-scheme: dark;
+  color: rgb(var(--color-primary));
+  background-color: rgb(var(--color-base));
+  
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  height: 100dvh;
+}
+
+button {
+  background: none;
+  outline: none;
+  border: none;
+  cursor: pointer;
+}
+
+#root {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  align-items: center;
+
+  @include for-desktop {
+    padding-left: 16.5%;
+    padding-right: 8.3%;
+  }
+
+  @include for-tablet {
+    min-height: 64rem;
+  }
+}
+
+// @media screen and (min-width: var(--desktop)) {
+//   #root {
+//     padding-left: 16.5%;
+//     padding-right: 8.3%;
+//   }
+// }

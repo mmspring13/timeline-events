@@ -1,18 +1,20 @@
 import { Layout } from "./components/layout";
 import { Widget } from "./components/timeline";
+import useMedia from "react-use/lib/useMedia";
 import { periods } from "./data";
+import "./app.scss";
+import { StickyCursor } from "./components/sticky-cursor";
 
 function App() {
   const title = "Исторические\nдаты";
+  const isTablet = useMedia("(min-width: 980px)");
 
   return (
-    <div className="xl:pl-[16.5%] xl:pr-[8.3%] flex justify-center items-center h-full">
-      <Layout>
-        <h1 className="text-line text-xl">{title}</h1>
-        <Widget periods={periods} />
-        {/* <h2>Lorem ipsum dolor sit.</h2> */}
-      </Layout>
-    </div>
+    <Layout>
+      {isTablet && <StickyCursor />}
+      <h1 className="app-title">{title}</h1>
+      <Widget periods={periods} />
+    </Layout>
   );
 }
 

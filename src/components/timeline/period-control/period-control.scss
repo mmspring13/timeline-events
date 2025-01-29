@@ -1,0 +1,51 @@
+.tl-period-control {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  padding-left: 1.25rem;
+  order: 2;
+
+  &__btns {
+    display: flex;
+    align-items: center;
+    margin-top: 1.2rem;
+  }
+
+  &__btn {
+    transform-origin: center;
+    max-width: 3.125rem;
+    height: 100%;
+    aspect-ratio: 1;
+    transition: .3s linear;
+    cursor: pointer;
+    border-radius: 50%;
+
+    &:active {
+      transform: translateY(.16rem);
+      background-color: rgb(var(--color-active));
+    }
+
+    &:disabled {
+      opacity: .5;
+    }
+
+    &__icon {
+      width: 100%;
+      aspect-ratio: 1;
+    }
+
+    &.__next {
+      margin-left: 1.2rem;
+      .tl-period-control__btn__icon {
+        transform: rotate(180deg);
+      }
+    }
+  }
+
+  @include for-tablet {
+    padding-left: 5rem;
+    padding-right: 2.5rem;
+    margin-top: auto;
+    order: initial;
+  }
+}
