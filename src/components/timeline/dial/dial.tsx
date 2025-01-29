@@ -15,6 +15,7 @@ export const Dial = () => {
   const [showLabel, setShowLabel] = useState(true);
 
   const rotateToPrimarySegment = useCallback(() => {
+    setShowLabel(false);
     const index = currentPeriodKey;
     const circle = dialRef.current;
     if (!circle) return;
@@ -38,7 +39,7 @@ export const Dial = () => {
       onTransitionEndCapture={() => {
         setTimeout(() => {
           setShowLabel(true);
-        }, 300);
+        }, 380);
       }}
     >
       {periods.map((period, i) => (
@@ -58,7 +59,6 @@ export const Dial = () => {
           onMouseLeave={() => setHoveredIdx(null)}
           onClick={() => {
             setPeriodKey(i);
-            setShowLabel(false);
           }}
         >
           {(i === currentPeriodKey || i === hoveredIdx) && String(period.key)}
